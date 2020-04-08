@@ -118,15 +118,6 @@ void Snowman::drawBody(glm::mat4 part, glm::vec3 color) {
 }
 
 /**
-* Change the snowman's size using the U and J keys
-*/
-void Snowman::scaleSnowman(GLFWwindow* window, const bool& shift, bool& canScaleIncrement) {
-	float snowmanScalingSpeed = globalSpeed * 0.005f;
-	bool scaleUp = glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS;
-	bool scaleDown = glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS;
-
-
-/**
 * Rotate the snowman using the Q and E keys
 */
 void Snowman::rotateSnowman(GLFWwindow* window, const bool& shift, bool& canRotateIncrement) {

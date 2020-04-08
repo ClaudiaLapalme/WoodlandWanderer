@@ -134,24 +134,18 @@ int main(int argc, char* argv[]) {
 		bool fkey = glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS;
 
 		if (fkey) {
-
-			if (!firstPerson) {
-				firstPerson = true;
-				thirdPerson = false;
+			if (canToggleFKey) {
+				firstPerson = !firstPerson;
+				canToggleFKey = false;
 			}
-
-			else {
-				firstPerson = false;
-				thirdPerson = true;
-			}
-
+		}
+		else {
+			canToggleFKey = true;
 		}
 
 		float currentFrame = glfwGetTime();
 		float deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
-
-	
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -160,9 +154,8 @@ int main(int argc, char* argv[]) {
 
 		if (firstPerson) {
 			camera = snowman.camera;
-		}
-
-		else if (thirdPerson) {
+		} else { // thirdPerson
+			camera = thirdPersonCamera;
 			Commands::processCameraRoamDirection(window, thirdPersonCamera.getCameraPosition(), thirdPersonCamera.getCameraLookAt(), thirdPersonCamera.getCameraUp(), deltaTime);
 		}
 

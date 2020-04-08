@@ -74,5 +74,5 @@ bool canRotateIncrement = true;
 bool canMoveIncrement = true;
 bool canRandomPlacement = true;
 bool firstPerson = true;
-bool thirdPerson = true;
-bool freeRoam = true;
+bool canToggleFKey = true;
+

@@ -12,5 +12,5 @@ class Commands {
 public:
 	static void closeWindow(GLFWwindow* window);
 	static void setRenderingMode(GLFWwindow* window);
-	static void processCameraRoamDirection(GLFWwindow* window, glm::vec3 cameraPos, glm::vec3 cameraLookAt, glm::vec3 cameraUp, float deltaTime);
+	static void processCameraRoamDirection(GLFWwindow* window, glm::vec3& cameraPos, glm::vec3& cameraLookAt, glm::vec3& cameraUp, float deltaTime);
 };

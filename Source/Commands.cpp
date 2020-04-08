@@ -29,7 +29,7 @@ void Commands::setRenderingMode(GLFWwindow* window) {
 * Move the camera in the world
 */
 
-void Commands::processCameraRoamDirection(GLFWwindow* window, glm::vec3 cameraPos, glm::vec3 cameraLookAt, glm::vec3 cameraUp, float deltaTime) {
+void Commands::processCameraRoamDirection(GLFWwindow* window, glm::vec3& cameraPos, glm::vec3& cameraLookAt, glm::vec3& cameraUp, float deltaTime) {
 	float cameraSpeed = deltaTime + 0.1;
 
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {

@@ -127,25 +127,23 @@ void Snowman::rotateSnowman(GLFWwindow* window, const bool& shift, bool& canRota
 	if (rotateLeft) {
 		if (!shift) {
 			this->rotation += snowmanRotationSpeed;
-			camera.setCameraLookAtX(this->rotation);
-			camera.setCameraLookAtZ(this->rotation);
+			
+			this->camera.setCameraLookAtX(sin(this->rotation));
+			this->camera.setCameraLookAtZ(cos(this->rotation));
+
 			if (this->rotation >= 2 * M_PI) {
 				this->rotation -= 2 * M_PI;
-
-				camera.setCameraLookAtX(this->rotation);
-				camera.setCameraLookAtZ(this->rotation);
 			}
 			this->animateHat -= globalSpeed * 0.01f;
 		}
 		else if (canRotateIncrement) {
 			this->rotation += 10 * snowmanRotationSpeed;
-			camera.setCameraLookAtX(this->rotation);
-			camera.setCameraLookAtZ(this->rotation);
+			
+			this->camera.setCameraLookAtX(sin(this->rotation));
+			this->camera.setCameraLookAtZ(cos(this->rotation));
+			
 			if (this->rotation >= 2 * M_PI) {
 				this->rotation -= 2 * M_PI;
-
-				camera.setCameraLookAtX(this->rotation);
-				camera.setCameraLookAtZ(this->rotation);
 			}
 			this->animateHat -= globalSpeed * 0.01f;
 		}
@@ -157,25 +155,24 @@ void Snowman::rotateSnowman(GLFWwindow* window, const bool& shift, bool& canRota
 		if (!shift) {
 
 			this->rotation -= snowmanRotationSpeed;
-			camera.setCameraLookAtX(this->rotation);
-			camera.setCameraLookAtZ(this->rotation);
+			
+			this->camera.setCameraLookAtX(sin(this->rotation));
+			this->camera.setCameraLookAtZ(cos(this->rotation));
 
 			if (this->rotation <= 2 * M_PI) {
 				this->rotation += 2 * M_PI;
-				camera.setCameraLookAtX(this->rotation);
-				camera.setCameraLookAtZ(this->rotation);
+				
 			}
 			this->animateHat += globalSpeed * 0.01f;
 		}
 		else if (canRotateIncrement) {
 			this->rotation -= 10 * snowmanRotationSpeed;
-			camera.setCameraLookAtX(this->rotation);
-			camera.setCameraLookAtZ(this->rotation);
+			
+			this->camera.setCameraLookAtX(sin(this->rotation));
+			this->camera.setCameraLookAtZ(cos(this->rotation));
+
 			if (this->rotation <= 2 * M_PI) {
 				this->rotation += 2 * M_PI;
-
-				camera.setCameraLookAtX(this->rotation);
-				camera.setCameraLookAtZ(this->rotation);
 			}
 			this->animateHat += globalSpeed * 0.01f;
 		}

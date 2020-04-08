@@ -36,6 +36,8 @@ public:
 	glm::vec3 getCameraLookAt() { return this->cameraLookAt; };
 	glm::vec3 getCameraUp() { return this->cameraUp; };
 
+	void Camera::onRender(GLFWwindow* window, float deltaTime);
+
 private:
 	glm::vec3 cameraPosition;
 	glm::vec3 cameraLookAt;

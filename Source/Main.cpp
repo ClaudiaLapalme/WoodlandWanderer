@@ -156,9 +156,8 @@ int main(int argc, char* argv[]) {
 			camera = snowman.camera;
 		} else { // thirdPerson
 			camera = thirdPersonCamera;
-			Commands::processCameraRoamDirection(window, thirdPersonCamera.getCameraPosition(), thirdPersonCamera.getCameraLookAt(), thirdPersonCamera.getCameraUp(), deltaTime);
 		}
-
+		thirdPersonCamera.onRender(window, deltaTime);
 
 		glUseProgram(shaderProgram);
 

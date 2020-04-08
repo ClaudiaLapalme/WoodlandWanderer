@@ -48,6 +48,8 @@ extern const float windowHeigth = 768.0f;
 
 // Camera parameters for view transform
 Camera camera = Camera();
+Camera thirdPersonCamera = Camera(glm::vec3(3.0f, 5.0f, 25.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
 
 // Other camera parameters
 bool firstMouse = true;
@@ -71,3 +73,6 @@ bool canScaleIncrement = true;
 bool canRotateIncrement = true;
 bool canMoveIncrement = true;
 bool canRandomPlacement = true;
+bool firstPerson = true;
+bool thirdPerson = true;
+bool freeRoam = true;

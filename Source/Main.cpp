@@ -128,21 +128,45 @@ int main(int argc, char* argv[]) {
 
 	while (!glfwWindowShouldClose(window)) {
 		glUniformMatrix4fv(worldMatrixLocation, 1, GL_FALSE, &glm::mat4(1.0f)[0][0]);
-		camera = snowman.camera;
-		
+
+		// For movement, if shift is held, it means a small movement for rotation, scaling, and transposing
+		bool shift = glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS;
+		bool fkey = glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS;
+
+		if (fkey) {
+
+			if (!firstPerson) {
+				firstPerson = true;
+				thirdPerson = false;
+			}
+
+			else {
+				firstPerson = false;
+				thirdPerson = true;
+			}
+
+		}
+
 		float currentFrame = glfwGetTime();
 		float deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
-		// For movement, if shift is held, it means a small movement for rotation, scaling, and transposing
-		bool shift = glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS;
+	
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		Commands::closeWindow(window);
 		Commands::setRenderingMode(window);
-		//Commands::processCameraDirection(window, cameraPosition, cameraLookAt, cameraUp, deltaTime);
-		
+
+		if (firstPerson) {
+			camera = snowman.camera;
+		}
+
+		else if (thirdPerson) {
+			Commands::processCameraRoamDirection(window, thirdPersonCamera.getCameraPosition(), thirdPersonCamera.getCameraLookAt(), thirdPersonCamera.getCameraUp(), deltaTime);
+		}
+
+
 		glUseProgram(shaderProgram);
 
 		// Can remove grid lines soon

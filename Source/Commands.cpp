@@ -31,16 +31,41 @@ void Commands::setRenderingMode(GLFWwindow* window) {
 void Commands::processCameraDirection(GLFWwindow* window, glm::vec3& cameraPos, glm::vec3& cameraLookAt, glm::vec3& cameraUp, float deltaTime) {
 	float cameraSpeed = deltaTime + 0.1;
 
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+		cameraPos += cameraSpeed * cameraLookAt;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+		cameraPos -= cameraSpeed * cameraLookAt;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+		cameraPos -= glm::normalize(glm::cross(cameraLookAt, cameraUp)) * cameraSpeed;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+		cameraPos += glm::normalize(glm::cross(cameraLookAt, cameraUp)) * cameraSpeed;
+	}
+}
+
+
+void Commands::processCameraRoamDirection(GLFWwindow* window, glm::vec3& cameraPos, glm::vec3& cameraLookAt, glm::vec3& cameraUp, float deltaTime) {
+	float cameraSpeed = deltaTime + 0.1;
+
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
 		cameraPos += cameraSpeed * cameraLookAt;
 	}
+
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
 		cameraPos -= cameraSpeed * cameraLookAt;
 	}
+
 	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
 		cameraPos -= glm::normalize(glm::cross(cameraLookAt, cameraUp)) * cameraSpeed;
 	}
+
 	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
 		cameraPos += glm::normalize(glm::cross(cameraLookAt, cameraUp)) * cameraSpeed;
 	}
+
 }

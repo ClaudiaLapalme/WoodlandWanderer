@@ -38,6 +38,8 @@ void Snowman::update() {
 	middle = groupTranslation * groupScaling * partRotation * translate(glm::mat4(1.0f), scaleFactor * (glm::vec3(0.0f, 5.5f, 0.0f))) * scale(glm::mat4(1.0f), chubbyFactor * scaleFactor * glm::vec3(3.0, 3.0, 3.0));
 	head = groupTranslation * groupScaling * partRotation * translate(glm::mat4(1.0f), scaleFactor * (glm::vec3(0.0f, 8.0f, 0.0f))) * scale(glm::mat4(1.0f), chubbyFactor * scaleFactor * glm::vec3(2.0, 2.0, 2.0));
 
+	//camera.setCameraPosition(scaleFactor * (glm::vec3(0.0f, 8.0f, 0.0f)));
+
 	button1 = groupTranslation * groupScaling * partRotation * translate(glm::mat4(1.0f), scaleFactor * (glm::vec3(0.0f, 6.0f, 0.92f * chubbyFactor * 1.55f))) * scale(glm::mat4(1.0f), scaleFactor * glm::vec3(0.3, 0.3, 0.1));
 	button2 = groupTranslation * groupScaling * partRotation * translate(glm::mat4(1.0f), scaleFactor * (glm::vec3(0.0f, 3.0f, chubbyFactor * 2.05f))) * scale(glm::mat4(1.0f), scaleFactor * glm::vec3(0.3, 0.3, 0.1));
 	button3 = groupTranslation * groupScaling * partRotation * translate(glm::mat4(1.0f), scaleFactor * (glm::vec3(0.0f, 4.5f, 0.82f * chubbyFactor * 2.05f))) * scale(glm::mat4(1.0f), scaleFactor * glm::vec3(0.3, 0.3, 0.1));
@@ -57,7 +59,7 @@ void Snowman::update() {
 
 	leftEye = groupTranslation * groupScaling * partRotation * translate(glm::mat4(1.0f), scaleFactor * (glm::vec3(-0.5f, 8.0f, chubbyFactor * 0.95f))) * scale(glm::mat4(1.0f), scaleFactor * glm::vec3(0.25, 0.25, 0.1));
 	rightEye = groupTranslation * groupScaling * partRotation * translate(glm::mat4(1.0f), scaleFactor * (glm::vec3(+0.5f, 8.0f, chubbyFactor * 0.95f))) * scale(glm::mat4(1.0f), scaleFactor * glm::vec3(0.25, 0.25, 0.1));
-	carrot = groupTranslation * groupScaling * partRotation * translate(glm::mat4(1.0f), scaleFactor * (glm::vec3(0.0f, 7.75f, chubbyFactor * 1.05f))) * scale(glm::mat4(1.0f), scaleFactor * glm::vec3(0.25, 0.25, 1.64));
+	carrot = groupTranslation * groupScaling * partRotation * translate(glm::mat4(1.0f), scaleFactor * (glm::vec3(0.0f, 7.75f, chubbyFactor * 1.05f))) * scale(glm::mat4(1.0f), scaleFactor * glm::vec3(0.25, 0.25, 5.64));
 	mouth = groupTranslation * groupScaling * partRotation * translate(glm::mat4(1.0f), scaleFactor * (glm::vec3(0.0f, 7.25f, chubbyFactor * 0.84f))) * scale(glm::mat4(1.0f), scaleFactor * glm::vec3(0.25, 0.125, 0.1));
 }
 
@@ -123,17 +125,6 @@ void Snowman::scaleSnowman(GLFWwindow* window, const bool& shift, bool& canScale
 	bool scaleUp = glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS;
 	bool scaleDown = glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS;
 
-	if (scaleUp && (!shift || canScaleIncrement)) { // Scale snowman up
-		this->scaleFactor += snowmanScalingSpeed;
-	}
-	if (scaleDown && (!shift || canScaleIncrement)) { // Scale snowman down
-		this->scaleFactor -= snowmanScalingSpeed;
-	}
-	if (this->scaleFactor < 0) {
-		this->scaleFactor = 0;
-	}
-	canScaleIncrement = !(scaleUp || scaleDown);
-}
 
 /**
 * Rotate the snowman using the Q and E keys
@@ -147,15 +138,25 @@ void Snowman::rotateSnowman(GLFWwindow* window, const bool& shift, bool& canRota
 	if (rotateLeft) {
 		if (!shift) {
 			this->rotation += snowmanRotationSpeed;
+			camera.setCameraLookAtX(this->rotation);
+			camera.setCameraLookAtZ(this->rotation);
 			if (this->rotation >= 2 * M_PI) {
 				this->rotation -= 2 * M_PI;
+
+				camera.setCameraLookAtX(this->rotation);
+				camera.setCameraLookAtZ(this->rotation);
 			}
 			this->animateHat -= globalSpeed * 0.01f;
 		}
 		else if (canRotateIncrement) {
 			this->rotation += 10 * snowmanRotationSpeed;
+			camera.setCameraLookAtX(this->rotation);
+			camera.setCameraLookAtZ(this->rotation);
 			if (this->rotation >= 2 * M_PI) {
 				this->rotation -= 2 * M_PI;
+
+				camera.setCameraLookAtX(this->rotation);
+				camera.setCameraLookAtZ(this->rotation);
 			}
 			this->animateHat -= globalSpeed * 0.01f;
 		}
@@ -164,16 +165,27 @@ void Snowman::rotateSnowman(GLFWwindow* window, const bool& shift, bool& canRota
 	// Rotate snowman right 5 degrees
 	if (rotateRight) {
 		if (!shift) {
+
 			this->rotation -= snowmanRotationSpeed;
+			camera.setCameraLookAtX(this->rotation);
+			camera.setCameraLookAtZ(this->rotation);
+
 			if (this->rotation <= 2 * M_PI) {
 				this->rotation += 2 * M_PI;
+				camera.setCameraLookAtX(this->rotation);
+				camera.setCameraLookAtZ(this->rotation);
 			}
 			this->animateHat += globalSpeed * 0.01f;
 		}
 		else if (canRotateIncrement) {
 			this->rotation -= 10 * snowmanRotationSpeed;
+			camera.setCameraLookAtX(this->rotation);
+			camera.setCameraLookAtZ(this->rotation);
 			if (this->rotation <= 2 * M_PI) {
 				this->rotation += 2 * M_PI;
+
+				camera.setCameraLookAtX(this->rotation);
+				camera.setCameraLookAtZ(this->rotation);
 			}
 			this->animateHat += globalSpeed * 0.01f;
 		}
@@ -198,6 +210,10 @@ void Snowman::translateSnowman(GLFWwindow* window, const bool& shift, bool& canM
 		if (!shift) {
 			this->origin.x += cos(this->rotation) * snowmanTranslationSpeed;
 			this->origin.z -= sin(this->rotation) * snowmanTranslationSpeed;
+
+			camera.setCameraPositionX(this->origin.x);
+			camera.setCameraPositionZ(this->origin.z);
+
 			if (!moveUp && !moveDown) {
 				this->animate += globalSpeed * 0.02f;
 			}
@@ -205,6 +221,10 @@ void Snowman::translateSnowman(GLFWwindow* window, const bool& shift, bool& canM
 		else if (canMoveIncrement) {
 			this->origin.x += cos(this->rotation) * 10.0f * snowmanTranslationSpeed;
 			this->origin.z -= sin(this->rotation) * 10.0f * snowmanTranslationSpeed;
+
+			camera.setCameraPositionX(this->origin.x);
+			camera.setCameraPositionZ(this->origin.z);
+
 			if (!moveUp && !moveDown) {
 				this->animate += globalSpeed * 10.0f * 0.02f;
 			}
@@ -216,12 +236,20 @@ void Snowman::translateSnowman(GLFWwindow* window, const bool& shift, bool& canM
 		if (!shift) {
 			this->origin.x -= cos(this->rotation) * snowmanTranslationSpeed;
 			this->origin.z += sin(this->rotation) * snowmanTranslationSpeed;
+
+			camera.setCameraPositionX(this->origin.x);
+			camera.setCameraPositionZ(this->origin.z);
+
 			if (!moveUp && !moveDown)
 				this->animate += globalSpeed * 0.02f;
 		}
 		else if (canMoveIncrement) {
 			this->origin.x -= cos(this->rotation) * 10.0f * snowmanTranslationSpeed;
 			this->origin.z += sin(this->rotation) * 10.0f * snowmanTranslationSpeed;
+
+			camera.setCameraPositionX(this->origin.x);
+			camera.setCameraPositionZ(this->origin.z);
+
 			if (!moveUp && !moveDown)
 				this->animate += globalSpeed * 10.0f * 0.02f;
 		}

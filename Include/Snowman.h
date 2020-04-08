@@ -7,8 +7,10 @@
 #include <glm/gtc/matrix_transform.hpp> // include this to create transformation matrices
 #include <glm/common.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "Camera.h"
 
 class Snowman {
+
 public:
 	Snowman() = default;
 	Snowman(GLuint worldMatrixColorLoc, 
@@ -24,7 +26,6 @@ public:
 	void drawHelper(glm::mat4 part, glm::vec3 color);
 	void drawBody(glm::mat4 part, glm::vec3 color);
 
-	void scaleSnowman(GLFWwindow* window, const bool& shift, bool& canScaleIncrement);
 	void rotateSnowman(GLFWwindow* window, const bool& shift, bool& canRotateIncrement);
 	void translateSnowman(GLFWwindow* window, const bool& shift, bool& canMoveIncrement);
 	void randomTranslationSnowman(GLFWwindow* window, const bool& shift, bool& canRandomPlacement);
@@ -34,6 +35,7 @@ public:
 	float scaleFactor;
 	float rotation; // degrees
 	float globalSpeed;
+	Camera camera = Camera();
 
 	glm::vec3 const snowmanColor = glm::vec3(0.97, 0.97, 1.0);
 	glm::vec3 const snowmanBranchColor = glm::vec3(0.87f, 0.72f, 0.53f);

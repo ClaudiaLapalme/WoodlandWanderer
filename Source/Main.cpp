@@ -128,7 +128,8 @@ int main(int argc, char* argv[]) {
 
 	while (!glfwWindowShouldClose(window)) {
 		glUniformMatrix4fv(worldMatrixLocation, 1, GL_FALSE, &glm::mat4(1.0f)[0][0]);
-
+		camera = snowman.camera;
+		
 		float currentFrame = glfwGetTime();
 		float deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
@@ -140,7 +141,7 @@ int main(int argc, char* argv[]) {
 
 		Commands::closeWindow(window);
 		Commands::setRenderingMode(window);
-		Commands::processCameraDirection(window, cameraPosition, cameraLookAt, cameraUp, deltaTime);
+		//Commands::processCameraDirection(window, cameraPosition, cameraLookAt, cameraUp, deltaTime);
 		
 		glUseProgram(shaderProgram);
 
@@ -173,7 +174,6 @@ int main(int argc, char* argv[]) {
 
 		//Snowman
 		snowman.draw();
-		snowman.scaleSnowman(window, shift, canScaleIncrement);
 		snowman.rotateSnowman(window, shift, canRandomPlacement);
 		snowman.translateSnowman(window, shift, canMoveIncrement);
 		snowman.randomTranslationSnowman(window, shift, canRandomPlacement);
@@ -322,7 +322,7 @@ void setProjectionMatrix(const int& shaderProgram) {
 }
 
 void setViewMatrix(const int& shaderProgram) {
-	viewMatrix = lookAt(cameraPosition, cameraPosition + cameraLookAt, cameraUp);
+	viewMatrix = lookAt(camera.getCameraPosition(), camera.getCameraPosition() + camera.getCameraLookAt(), camera.getCameraUp());
 	glUseProgram(shaderProgram);
 	GLuint viewMatrixLocation = glGetUniformLocation(shaderProgram, "viewMatrix");
 	glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, &viewMatrix[0][0]);
@@ -364,5 +364,5 @@ void mouseCallback(GLFWwindow* window, double xPos, double yPos) {
 	direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
 	direction.y = sin(glm::radians(pitch));
 	direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-	cameraLookAt = glm::normalize(direction);
+	camera.setCameraLookAt(glm::normalize(direction));
 }

@@ -14,5 +14,5 @@ void main() {
 	mat4 modelViewProjection = projectionMatrix * viewMatrix * worldMatrix;
 	gl_Position = modelViewProjection * vec4(aPos, 1.0);
 	Normal = mat3(transpose(inverse(worldMatrix))) * aNormal; // inverse and transpose since scaling distorts the normal! 
-	FragPos = vec3(worldMatrix * vec4(aPos, 1.0f));
+	FragPos = vec3(modelViewProjection * vec4(aPos, 1.0f));
 };

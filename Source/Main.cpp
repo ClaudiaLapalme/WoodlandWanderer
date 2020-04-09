@@ -63,7 +63,6 @@ int main(int argc, char* argv[]) {
 	glCullFace(GL_BACK);
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
-
 	///////////////////////////////////////////////////////////////////
 	////////////////////////// .obj set up ////////////////////////////
 	///////////////////////////////////////////////////////////////////
@@ -146,6 +145,8 @@ int main(int argc, char* argv[]) {
 		float currentFrame = glfwGetTime();
 		float deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
+
+		// Setting the camera values...
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

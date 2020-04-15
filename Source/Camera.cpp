@@ -10,8 +10,16 @@ Camera::Camera(glm::vec3 _cameraPosition, glm::vec3 _cameraLookAt, glm::vec3 _ca
 	:cameraPosition(_cameraPosition), cameraLookAt(_cameraLookAt), cameraUp(_cameraUp)
 {}
 
-void Camera::onRender(GLFWwindow* window, float deltaTime) {
-	float cameraSpeed = deltaTime + 0.1;
+void Camera::onRender(GLFWwindow* window) {
+	float cameraSpeed;
+
+	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS
+		|| glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS) {
+		cameraSpeed = 2.5;
+	}
+	else {
+		cameraSpeed = 0.5;
+	}
 
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
 		cameraPosition += cameraSpeed * cameraLookAt;

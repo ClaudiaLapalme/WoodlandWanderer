@@ -55,7 +55,7 @@ public:
 	void setDx(double _dx) { dx = _dx; };
 	void setDy(double _dy) { dy = _dy; };
 
-	void Camera::onRender(GLFWwindow* window, float deltaTime);
+	void Camera::onRender(GLFWwindow* window);
 
 private:
 	glm::vec3 cameraPosition;

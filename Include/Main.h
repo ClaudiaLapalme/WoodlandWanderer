@@ -28,6 +28,7 @@
 #include "../Include/Tile.h"
 #include "../Include/Assets.h"
 #include "../Include/Camera.h"
+#include "../Include/Parameters.h"
  
 int compileAndLinkShaders(const std::string vertexShaderSource, const std::string fragmentShaderSource);
 
@@ -42,10 +43,6 @@ void mouseCallback(GLFWwindow* window, double xPos, double yPos);
 ////////////////////////// Variables //////////////////////////////
 ///////////////////////////////////////////////////////////////////
 
-extern const float windowWidth = 1024.0f;
-extern const float windowHeigth = 768.0f;
-
-
 // Camera parameters for view transform
 Camera camera = Camera();
 Camera thirdPersonCamera = Camera(glm::vec3(3.0f, 5.0f, 25.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -55,13 +52,12 @@ Camera thirdPersonCamera = Camera(glm::vec3(3.0f, 5.0f, 25.0f), glm::vec3(0.0f, 
 bool firstMouse = true;
 float yaw = -90.0f;
 float pitch = 0.0f;
-float lastX = windowWidth / 2.0;
+float lastX = (HD ? WindowWidthHD : WindowWidth)/ 2.0;
 float lastY = 768 / 2.0;
 float fov = 45.0f;
 float lastFrame = 0.0f;
 
-
-glm::mat4 projectionMatrix = glm::perspective(fov, windowWidth / windowHeigth, 0.01f, 100.0f);
+glm::mat4 projectionMatrix = glm::perspective(fov, (HD ? WindowWidthHD : WindowWidth) / (HD ? WindowHeightHD : WindowHeight), 0.01f, 100.0f);
 glm::mat4 viewMatrix = lookAt(camera.getCameraPosition(), camera.getCameraPosition() + camera.getCameraLookAt(), camera.getCameraUp());
 
 // World rotation

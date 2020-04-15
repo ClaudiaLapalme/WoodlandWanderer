@@ -25,6 +25,3 @@ void Commands::setRenderingMode(GLFWwindow* window) {
 	}
 }
 
-/**
-* Move the camera in the world
-*/

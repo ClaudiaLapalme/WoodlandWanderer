@@ -52,6 +52,9 @@ public:
 	float globalSpeed;
 	float chubbyFactor;
 	Camera camera = Camera();
+	Camera thirdCamera = Camera(glm::vec3(-0.0f, 8.5f, -16.9f), 
+		glm::vec3(0.0f, 0.0f, 1.0f),
+		glm::vec3(0.0f, 1.0f, 0.0f));
 
 	glm::vec3 const snowmanColor = glm::vec3(0.97, 0.97, 1.0);
 	glm::vec3 const snowmanBranchColor = glm::vec3(0.87f, 0.72f, 0.53f);

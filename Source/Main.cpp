@@ -173,9 +173,9 @@ int main(int argc, char* argv[]) {
 		if (firstPerson) {
 			camera = snowman.camera;
 		} else { // thirdPerson
-			camera = thirdPersonCamera;
+			camera = snowman.thirdCamera;
+			thirdPersonCamera.onRender(window);
 		}
-		thirdPersonCamera.onRender(window);
 
 		glUseProgram(shaderProgram);
 

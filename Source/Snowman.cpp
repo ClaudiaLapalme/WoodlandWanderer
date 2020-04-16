@@ -137,7 +137,8 @@ void Snowman::rotateSnowman(GLFWwindow* window, const bool& shift, bool& canRota
 	float snowmanRotationSpeed = globalSpeed * 0.0064f; // degrees
 	bool rotateLeft = glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS;
 	bool rotateRight = glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS;
-
+	float xOffset = 0.0f;
+	float zOffset = 16.9f;
 	// Rotate snowman left 5 degrees
 	if (rotateLeft) {
 		if (!shift) {
@@ -145,6 +146,11 @@ void Snowman::rotateSnowman(GLFWwindow* window, const bool& shift, bool& canRota
 			
 			this->camera.setCameraLookAtX(sin(this->rotation));
 			this->camera.setCameraLookAtZ(cos(this->rotation));
+
+			this->thirdCamera.setCameraLookAtX(sin(this->rotation));
+			this->thirdCamera.setCameraLookAtZ(cos(this->rotation));
+			//thirdCamera.setCameraPosition((this->origin - xOffset) + glm::vec3(this->rotation, this->rotation, this->rotation));
+
 
 			if (this->rotation >= 2 * M_PI) {
 				this->rotation -= 2 * M_PI;
@@ -156,7 +162,11 @@ void Snowman::rotateSnowman(GLFWwindow* window, const bool& shift, bool& canRota
 			
 			this->camera.setCameraLookAtX(sin(this->rotation));
 			this->camera.setCameraLookAtZ(cos(this->rotation));
-			
+
+			this->thirdCamera.setCameraLookAtX(sin(this->rotation));
+			this->thirdCamera.setCameraLookAtZ(cos(this->rotation));
+			//thirdCamera.setCameraPosition((this->origin - xOffset) + glm::vec3(this->rotation, this->rotation, this->rotation));
+
 			if (this->rotation >= 2 * M_PI) {
 				this->rotation -= 2 * M_PI;
 			}
@@ -174,6 +184,10 @@ void Snowman::rotateSnowman(GLFWwindow* window, const bool& shift, bool& canRota
 			this->camera.setCameraLookAtX(sin(this->rotation));
 			this->camera.setCameraLookAtZ(cos(this->rotation));
 
+			this->thirdCamera.setCameraLookAtX(sin(this->rotation));
+			this->thirdCamera.setCameraLookAtZ(cos(this->rotation));
+		//	thirdCamera.setCameraPosition((this->origin - xOffset) + glm::vec3(this->rotation, this->rotation, this->rotation));
+
 			if (this->rotation <= 2 * M_PI) {
 				this->rotation += 2 * M_PI;
 				
@@ -185,6 +199,10 @@ void Snowman::rotateSnowman(GLFWwindow* window, const bool& shift, bool& canRota
 			
 			this->camera.setCameraLookAtX(sin(this->rotation));
 			this->camera.setCameraLookAtZ(cos(this->rotation));
+
+			this->thirdCamera.setCameraLookAtX(sin(this->rotation));
+			this->thirdCamera.setCameraLookAtZ(cos(this->rotation));
+			//thirdCamera.setCameraPosition((this->origin - xOffset) + glm::vec3(this->rotation, this->rotation, this->rotation));
 
 			if (this->rotation <= 2 * M_PI) {
 				this->rotation += 2 * M_PI;
@@ -226,6 +244,8 @@ void Snowman::translateSnowman(GLFWwindow* window, const bool& shift, bool& canM
 	bool moveRight = glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS;
 	bool moveUp    = glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS;
 	bool moveDown  = glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS;
+	float xOffset = 0.0f;
+	float zOffset = 16.9f;
 
 	adjustKeysToRotation();
 
@@ -238,6 +258,9 @@ void Snowman::translateSnowman(GLFWwindow* window, const bool& shift, bool& canM
 			camera.setCameraPositionX(this->origin.x);
 			camera.setCameraPositionZ(this->origin.z);
 
+			thirdCamera.setCameraPositionX(this->origin.x - xOffset);
+			thirdCamera.setCameraPositionZ(this->origin.z - zOffset);
+
 			if (!moveUp && !moveDown) {
 				this->animate += globalSpeed * 0.02f;
 			}
@@ -248,6 +271,9 @@ void Snowman::translateSnowman(GLFWwindow* window, const bool& shift, bool& canM
 
 			camera.setCameraPositionX(this->origin.x);
 			camera.setCameraPositionZ(this->origin.z);
+
+			thirdCamera.setCameraPositionX(this->origin.x - xOffset);
+			thirdCamera.setCameraPositionZ(this->origin.z - zOffset);
 
 			if (!moveUp && !moveDown) {
 				this->animate += globalSpeed * 10.0f * 0.02f;
@@ -264,6 +290,9 @@ void Snowman::translateSnowman(GLFWwindow* window, const bool& shift, bool& canM
 			camera.setCameraPositionX(this->origin.x);
 			camera.setCameraPositionZ(this->origin.z);
 
+			thirdCamera.setCameraPositionX(this->origin.x - xOffset);
+			thirdCamera.setCameraPositionZ(this->origin.z - zOffset);
+
 			if (!moveUp && !moveDown)
 				this->animate += globalSpeed * 0.02f;
 		}
@@ -273,6 +302,9 @@ void Snowman::translateSnowman(GLFWwindow* window, const bool& shift, bool& canM
 
 			camera.setCameraPositionX(this->origin.x);
 			camera.setCameraPositionZ(this->origin.z);
+
+			thirdCamera.setCameraPositionX(this->origin.x - xOffset);
+			thirdCamera.setCameraPositionZ(this->origin.z - zOffset);
 
 			if (!moveUp && !moveDown)
 				this->animate += globalSpeed * 10.0f * 0.02f;
@@ -288,6 +320,9 @@ void Snowman::translateSnowman(GLFWwindow* window, const bool& shift, bool& canM
 
 			camera.setCameraPositionX(this->origin.x);
 			camera.setCameraPositionZ(this->origin.z);
+
+			thirdCamera.setCameraPositionX(this->origin.x - xOffset);
+			thirdCamera.setCameraPositionZ(this->origin.z - zOffset);
 		}
 		else if (canMoveIncrement) {
 			this->origin.x += sin(this->rotation) * 10.0f * snowmanTranslationSpeed;
@@ -296,6 +331,9 @@ void Snowman::translateSnowman(GLFWwindow* window, const bool& shift, bool& canM
 
 			camera.setCameraPositionX(this->origin.x);
 			camera.setCameraPositionZ(this->origin.z);
+
+			thirdCamera.setCameraPositionX(this->origin.x - xOffset);
+			thirdCamera.setCameraPositionZ(this->origin.z - zOffset);
 		}
 	}
 
@@ -308,6 +346,9 @@ void Snowman::translateSnowman(GLFWwindow* window, const bool& shift, bool& canM
 
 			camera.setCameraPositionX(this->origin.x);
 			camera.setCameraPositionZ(this->origin.z);
+
+			thirdCamera.setCameraPositionX(this->origin.x - xOffset);
+			thirdCamera.setCameraPositionZ(this->origin.z - zOffset);
 		}
 		else if (canMoveIncrement) {
 			this->origin.x -= sin(this->rotation) * 10.0f * snowmanTranslationSpeed;
@@ -316,6 +357,9 @@ void Snowman::translateSnowman(GLFWwindow* window, const bool& shift, bool& canM
 
 			camera.setCameraPositionX(this->origin.x);
 			camera.setCameraPositionZ(this->origin.z);
+
+			thirdCamera.setCameraPositionX(this->origin.x - xOffset);
+			thirdCamera.setCameraPositionZ(this->origin.z - zOffset);
 		}
 	}
 	canMoveIncrement = !(moveLeft || moveRight || moveUp || moveDown);
